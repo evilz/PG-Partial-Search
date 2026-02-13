@@ -57,8 +57,6 @@ app.MapGet("/api/search", async (
     var totalCount = await filteredQuery.CountAsync();
 
     var items = await filteredQuery
-        .OrderBy(p => p.Person.LastName)
-        .ThenBy(p => p.Person.FirstName)
         .Skip((page - 1) * pageSize)
         .Take(pageSize)
         .Select(p => new

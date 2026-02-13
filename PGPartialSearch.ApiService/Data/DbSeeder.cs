@@ -1,5 +1,7 @@
 using Bogus;
+using EFCore.BulkExtensions;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace PGPartialSearch.ApiService.Data;
 
@@ -45,12 +47,27 @@ public static class DbSeeder
             .RuleFor(p => p.City, f => f.Address.City());
 
         // Generate 10,000 random people
-        var people = faker.Generate(10000);
-        
-        await context.People.AddRangeAsync(people);
-        await context.SaveChangesAsync();
+        var people = faker.Generate(1_000_000);
 
-        logger.LogInformation("Database seeded successfully with {Count} people", people.Count);
+        var stopwatch = Stopwatch.StartNew();
+        await context.BulkInsertAsync(people);
+        stopwatch.Stop();
+        
+        logger.LogInformation("Database seeded successfully with {Count} people in {Time}", people.Count, ToFriendly(stopwatch.ElapsedMilliseconds));
+    }
+    
+    public static string ToFriendly(long ms)
+    {
+        var ts = TimeSpan.FromMilliseconds(ms);
+
+        return ts switch
+        {
+            _ when ts.TotalMilliseconds < 1000 => $"{ts.TotalMilliseconds:0} ms",
+            _ when ts.TotalMinutes < 1 => $"{ts.Seconds} s",
+            _ when ts.TotalHours < 1 => $"{ts.Minutes} min {ts.Seconds} s",
+            _ when ts.TotalDays < 1 => $"{ts.Hours} h {ts.Minutes} min",
+            _ => $"{ts.Days} j {ts.Hours} h"
+        };
     }
 }
 
