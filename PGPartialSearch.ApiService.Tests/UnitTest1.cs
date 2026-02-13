@@ -3,7 +3,7 @@ using PGPartialSearch.ApiService.Data;
 
 namespace PGPartialSearch.ApiService.Tests;
 
-public class UnitTest1
+public class SearchQueryTests
 {
     [Fact]
     public void Apply_UsesTrigramSimilarityPredicate()
@@ -31,7 +31,7 @@ public class UnitTest1
     private static SearchDbContext CreateContext()
     {
         var options = new DbContextOptionsBuilder<SearchDbContext>()
-            .UseNpgsql("Host=localhost;Database=searchdb;Username=postgres;Password=postgres")
+            .UseNpgsql("Host=localhost;Database=searchdb")
             .Options;
 
         return new SearchDbContext(options);
