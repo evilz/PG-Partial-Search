@@ -9,3 +9,10 @@ public class Person
     public required string Phone { get; set; }
     public required string City { get; set; }
 }
+
+
+public sealed class PersonSearchResult
+{
+    public Person Person { get; init; } = default!;
+    public double Score { get; init; }
+}

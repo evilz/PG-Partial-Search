@@ -76,6 +76,7 @@ function displayResults(data) {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${startIndex + index + 1}</td>
+            <td><strong>${escapeHtml(person.score)}</strong></td>
             <td><strong>${escapeHtml(person.firstName)}</strong></td>
             <td><strong>${escapeHtml(person.lastName)}</strong></td>
             <td>${escapeHtml(person.email)}</td>

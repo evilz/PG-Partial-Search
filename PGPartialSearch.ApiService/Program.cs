@@ -57,18 +57,19 @@ app.MapGet("/api/search", async (
     var totalCount = await filteredQuery.CountAsync();
 
     var items = await filteredQuery
-        .OrderBy(p => p.LastName)
-        .ThenBy(p => p.FirstName)
+        .OrderBy(p => p.Person.LastName)
+        .ThenBy(p => p.Person.FirstName)
         .Skip((page - 1) * pageSize)
         .Take(pageSize)
         .Select(p => new
         {
-            p.Id,
-            p.FirstName,
-            p.LastName,
-            p.Email,
-            p.Phone,
-            p.City
+            p.Score,
+            p.Person.Id,
+            p.Person.FirstName,
+            p.Person.LastName,
+            p.Person.Email,
+            p.Person.Phone,
+            p.Person.City
         })
         .ToListAsync();
 
