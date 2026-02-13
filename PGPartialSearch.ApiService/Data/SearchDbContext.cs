@@ -23,14 +23,8 @@ public class SearchDbContext : DbContext
             entity.Property(e => e.Phone).IsRequired().HasMaxLength(50);
             entity.Property(e => e.City).IsRequired().HasMaxLength(100);
 
-            // Create GIN index for trigram search on FirstName and LastName
-            entity.HasIndex(e => e.FirstName)
-                .HasMethod("gin")
-                .HasOperators("gin_trgm_ops");
-            
-            entity.HasIndex(e => e.LastName)
-                .HasMethod("gin")
-                .HasOperators("gin_trgm_ops");
+            // Note: GIN indexes for trigram search will be created separately in the seeder
+            // after enabling the pg_trgm extension
         });
     }
 }

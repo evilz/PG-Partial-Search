@@ -1,4 +1,5 @@
-﻿Microsoft Visual Studio Solution File, Format Version 12.00
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.0.0
 MinimumVisualStudioVersion = 17.8.0.0
@@ -7,8 +8,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PGPartialSearch.ServiceDefaults", "PGPartialSearch.ServiceDefaults\PGPartialSearch.ServiceDefaults.csproj", "{356B9229-B759-45F3-A74E-D704EAC7088C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PGPartialSearch.ApiService", "PGPartialSearch.ApiService\PGPartialSearch.ApiService.csproj", "{0835E0E2-A126-452C-A660-B9EF9D504538}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PGPartialSearch.Web", "PGPartialSearch.Web\PGPartialSearch.Web.csproj", "{0BA3E54D-1DFE-4A9A-887E-12194EBF232E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,10 +27,6 @@ Global
 		{0835E0E2-A126-452C-A660-B9EF9D504538}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0835E0E2-A126-452C-A660-B9EF9D504538}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0835E0E2-A126-452C-A660-B9EF9D504538}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0BA3E54D-1DFE-4A9A-887E-12194EBF232E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0BA3E54D-1DFE-4A9A-887E-12194EBF232E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0BA3E54D-1DFE-4A9A-887E-12194EBF232E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0BA3E54D-1DFE-4A9A-887E-12194EBF232E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

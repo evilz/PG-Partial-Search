@@ -9,9 +9,24 @@ public static class DbSeeder
     {
         // Ensure database is created
         await context.Database.EnsureCreatedAsync();
-
+        
         // Enable pg_trgm extension for trigram search
         await context.Database.ExecuteSqlRawAsync("CREATE EXTENSION IF NOT EXISTS pg_trgm;");
+        logger.LogInformation("pg_trgm extension enabled");
+
+        // Create GIN indexes for trigram search if they don't exist
+        try
+        {
+            await context.Database.ExecuteSqlRawAsync(
+                @"CREATE INDEX IF NOT EXISTS ""IX_People_FirstName_gin"" ON ""People"" USING gin (""FirstName"" gin_trgm_ops);");
+            await context.Database.ExecuteSqlRawAsync(
+                @"CREATE INDEX IF NOT EXISTS ""IX_People_LastName_gin"" ON ""People"" USING gin (""LastName"" gin_trgm_ops);");
+            logger.LogInformation("GIN trigram indexes created");
+        }
+        catch (Exception ex)
+        {
+            logger.LogWarning(ex, "Could not create GIN indexes");
+        }
 
         // Check if data already exists
         if (await context.People.AnyAsync())
@@ -38,3 +53,6 @@ public static class DbSeeder
         logger.LogInformation("Database seeded successfully with {Count} people", people.Count);
     }
 }
+
+
+
