@@ -52,18 +52,11 @@ app.MapGet("/api/search", async (
     page = Math.Max(1, page);
     pageSize = Math.Clamp(pageSize, 1, 100);
 
-    var searchPattern = $"%{query}%";
-    
-    // Use EF.Functions.ILike for case-insensitive pattern matching
-    // This uses the trigram index when available
-    var totalCount = await db.People
-        .Where(p => EF.Functions.ILike(p.FirstName, searchPattern) || 
-                    EF.Functions.ILike(p.LastName, searchPattern))
-        .CountAsync();
+    var filteredQuery = SearchQuery.Apply(db.People, query);
 
-    var items = await db.People
-        .Where(p => EF.Functions.ILike(p.FirstName, searchPattern) || 
-                    EF.Functions.ILike(p.LastName, searchPattern))
+    var totalCount = await filteredQuery.CountAsync();
+
+    var items = await filteredQuery
         .OrderBy(p => p.LastName)
         .ThenBy(p => p.FirstName)
         .Skip((page - 1) * pageSize)

@@ -25,7 +25,7 @@ This project successfully implements a full-featured .NET Aspire application dem
 - Seeds only once, checks for existing data
 
 ### 4. Fast Partial Search ✅
-- Case-insensitive ILIKE queries
+- pg_trgm trigram similarity queries (`%` operator)
 - Trigram-indexed for performance
 - Supports fragments, prefixes, and fuzzy matching
 - Example: "son" finds 486 results (Anderson, Johnson, Wilson, Addison, etc.)
@@ -129,9 +129,9 @@ Shows results 21-40 of 486
    - Vanilla JS is sufficient
    - Faster load times, smaller footprint
 
-5. **ILIKE Instead of LIKE**
-   - Case-insensitive by default
-   - Better user experience
+5. **Trigram Similarity over Pattern Matching**
+   - Supports fuzzy matching (e.g., `Beatty` → `Beattie`)
+   - Uses pg_trgm similarity thresholding
    - PostgreSQL-optimized
 
 ## 📈 Performance Characteristics
