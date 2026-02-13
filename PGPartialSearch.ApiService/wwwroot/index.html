@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PostgreSQL Partial Search Demo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔍 PostgreSQL Partial Search</h1>
+            <p class="subtitle">Fast name search with pg_trgm (Elastic-like behavior)</p>
+        </header>
+
+        <div class="search-section">
+            <div class="search-box">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="Search for first or last name (e.g., 'john', 'smith', 'son')..." 
+                    autocomplete="off">
+                <button id="searchBtn">Search</button>
+            </div>
+            <div class="search-info">
+                <p>💡 Try searching for partial names, prefixes, or fragments</p>
+            </div>
+        </div>
+
+        <div id="loading" class="loading" style="display: none;">
+            <div class="spinner"></div>
+            <p>Searching...</p>
+        </div>
+
+        <div id="results" class="results">
+            <div id="resultsHeader" class="results-header" style="display: none;">
+                <h2>Results</h2>
+                <p id="resultsCount"></p>
+            </div>
+            <table id="resultsTable" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>City</th>
+                    </tr>
+                </thead>
+                <tbody id="resultsBody"></tbody>
+            </table>
+            <div id="pagination" class="pagination" style="display: none;"></div>
+            <div id="noResults" class="no-results" style="display: none;">
+                <p>No results found. Try a different search term.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
