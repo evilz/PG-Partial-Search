@@ -45,7 +45,7 @@ Run with Aspire orchestration (preferred):
 dotnet run --project PGPartialSearch.AppHost/PGPartialSearch.AppHost.csproj
 ```
 
-Manual local database setup, useful when Aspire DCP is unavailable:
+Manual local database setup, useful when Aspire DCP (Developer Control Panel) is unavailable:
 
 ```bash
 docker run -d --name pg-search \
