@@ -122,7 +122,7 @@ Test guidance:
 ### Frontend/static assets
 
 - Keep the static UI dependency-free unless there is a clear project need to add a frontend toolchain.
-- Place browser code in `PGPartialSearch.ApiService/wwwroot/app.js`, styles in `styles.css`, and markup in `index.html`.
+- Place browser code in PGPartialSearch.ApiService/wwwroot/app.js, styles in PGPartialSearch.ApiService/wwwroot/styles.css, and markup in PGPartialSearch.ApiService/wwwroot/index.html.
 - If you make a visible UI change, capture or update screenshots when the environment supports running the app.
 
 ### Formatting
