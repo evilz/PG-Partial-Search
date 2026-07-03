@@ -61,7 +61,14 @@ Then run the API service:
 dotnet run --project PGPartialSearch.ApiService/PGPartialSearch.ApiService.csproj
 ```
 
-The API service expects a PostgreSQL connection named `searchdb` when running under Aspire. For manual runs, provide an equivalent connection string via user secrets, environment variables, or `appsettings.Development.json` as appropriate for your local environment.
+The API service expects a PostgreSQL connection named `searchdb` when running under Aspire. For manual runs, configure the connection string using standard ASP.NET Core configuration (for example `ConnectionStrings__searchdb`):
+
+    export ConnectionStrings__searchdb="Host=localhost;Port=5432;Database=searchdb;Username=postgres;Password=postgres"
+
+Or (optional) via user-secrets:
+
+    dotnet user-secrets init --project PGPartialSearch.ApiService/PGPartialSearch.ApiService.csproj
+    dotnet user-secrets set "ConnectionStrings:searchdb" "Host=localhost;Port=5432;Database=searchdb;Username=postgres;Password=postgres" --project PGPartialSearch.ApiService/PGPartialSearch.ApiService.csproj
 
 ## Development Workflow
 
