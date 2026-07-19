@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-test-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+      - run: dotnet restore PGPartialSearch.sln
+      - run: dotnet build PGPartialSearch.sln -c Release --no-restore
+      - run: dotnet test PGPartialSearch.sln -c Release --no-build
+      - name: Reject vulnerable transitive packages
+        shell: bash
+        run: |
+          report="$(dotnet list PGPartialSearch.sln package --vulnerable --include-transitive)"
+          echo "$report"
+          if echo "$report" | grep -q "has the following vulnerable packages"; then
+            exit 1
+          fi
