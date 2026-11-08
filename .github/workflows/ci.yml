@@ -17,14 +17,10 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 10.0.x
-      - run: dotnet restore PGPartialSearch.sln
+      - name: Restore and audit direct and transitive packages
+        run: >-
+          dotnet restore PGPartialSearch.sln
+          -p:NuGetAudit=true -p:NuGetAuditMode=all
+          '-p:WarningsAsErrors=NU1900%3BNU1901%3BNU1902%3BNU1903%3BNU1904%3BNU1905'
       - run: dotnet build PGPartialSearch.sln -c Release --no-restore
       - run: dotnet test PGPartialSearch.sln -c Release --no-build
-      - name: Reject vulnerable transitive packages
-        shell: bash
-        run: |
-          report="$(dotnet list PGPartialSearch.sln package --vulnerable --include-transitive)"
-          echo "$report"
-          if echo "$report" | grep -q "has the following vulnerable packages"; then
-            exit 1
-          fi
